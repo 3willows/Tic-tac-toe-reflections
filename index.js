@@ -72,3 +72,9 @@ playerSubmit.addEventListener("click", () => {
     }
   }
 })
+
+playerInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    playerSubmit.click()
+  }
+})
