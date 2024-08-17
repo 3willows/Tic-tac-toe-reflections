@@ -17,15 +17,17 @@ const winningCombinations = [
   [2, 5, 8],
   [3, 6, 9],
   [1, 5, 9],
-  [3, 5, 7]
+  [3, 5, 7],
 ]
 
 async function checkWin(playerArray) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (winningCombinations.some((combination) =>
-        combination.every((number) => playerArray.includes(number))
-      )) {
+      if (
+        winningCombinations.some((combination) =>
+          combination.every((number) => playerArray.includes(number))
+        )
+      ) {
         reset()
         resolve(true)
       } else {
@@ -71,7 +73,7 @@ playerSubmit.addEventListener("click", async () => {
     try {
       await checkWin(player1Array)
       alert("Player 1 wins!")
-     } catch (error) {
+    } catch (error) {
       try {
         await checkWin(player2Array)
         alert("Player 2 wins!")
@@ -79,7 +81,6 @@ playerSubmit.addEventListener("click", async () => {
         // do nothing
       }
     }
-
   }
 })
 
