@@ -27,16 +27,10 @@ function checkWin(playerArray) {
 }
 
 function reset() {
-  emptySpacesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  player1Array = []
-  player2Array = []
-
-  emptySpaces.textContent = "Empty spaces: [1, 2, 3, 4, 5, 6, 7, 8, 9]"
-  player1Moves.textContent = "Player 1: []"
-  player2Moves.textContent = "Player 2: []"
+  location.reload()
 }
 
-let emptySpaces = document.getElementById("emptySpaces")
+const emptySpaces = document.getElementById("emptySpaces")
 const player1Moves = document.getElementById("player1Moves")
 const player2Moves = document.getElementById("player2Moves")
 
@@ -48,15 +42,18 @@ playerSubmit.addEventListener("click", () => {
   const choice = parseInt(playerInput.value)
   const index = emptySpacesArray.indexOf(choice)
   if (index !== -1) {
-    let move = emptySpacesArray.splice(index, 1)[0]
+    emptySpacesArray.splice(index, 1)
+    let relevantSquare = document.getElementById(`cell-${choice}`)
     if (emptySpacesArray.length % 2 === 0) {
-      player1Array.push(move)
+      player1Array.push(choice)
       player1Moves.textContent = "Player 1: [" + player1Array.join(", ") + "]"
       playerLabel.textContent = "Player 2's move:"
+      relevantSquare.textContent = "O"
     } else {
-      player2Array.push(move)
+      player2Array.push(choice)
       player2Moves.textContent = "Player 2: [" + player2Array.join(", ") + "]"
       playerLabel.textContent = "Player 1's move:"
+      relevantSquare.textContent = "X"
     }
     emptySpaces.textContent =
       "Empty spaces: [" + emptySpacesArray.join(", ") + "]"
