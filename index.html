@@ -4,8 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <title>Tic-tac-toe-reflections</title>
+  <title>Tic-tac-toe reflections</title>
 </head>
 
 <body>
@@ -59,6 +58,10 @@
       emptySpacesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9]
       player1Array = []
       player2Array = []
+
+      emptySpaces.textContent = "Empty spaces: [1, 2, 3, 4, 5, 6, 7, 8, 9]";
+      player1Moves.textContent = "Player 1: []";
+      player2Moves.textContent = "Player 2: []";
     }
 
     let emptySpaces = document.getElementById("emptySpaces");
@@ -83,8 +86,8 @@
         player1Input.value = "";
 
         if (checkWin(player1Array)) {
-          alert("Player 1 wins!")
           reset()
+          alert("Player 1 wins!")
         }
       }
     });
@@ -101,8 +104,8 @@
           "Player 2: [" + player2Array.join(", ") + "]";
         player2Input.value = "";
         if (checkWin(player2Array)) {
-          alert("Player 2 wins!")
           reset()
+          alert("Player 2 wins!")
         }
       }
     });
