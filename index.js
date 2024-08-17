@@ -38,48 +38,34 @@ function reset() {
 
 let emptySpaces = document.getElementById("emptySpaces")
 const player1Moves = document.getElementById("player1Moves")
+const player2Moves = document.getElementById("player2Moves")
 
-const player1Input = document.getElementById("player1Input")
-const player1Submit = document.getElementById("player1Submit")
+const playerInput = document.getElementById("playerInput")
+const playerSubmit = document.getElementById("playerSubmit")
+const playerLabel = document.getElementById("playerLabel")
 
-const player2Input = document.getElementById("player2Input")
-const player2Submit = document.getElementById("player2Submit")
-
-let player1Turn = true
-
-player1Submit.addEventListener("click", () => {
-  const choice = parseInt(player1Input.value)
+playerSubmit.addEventListener("click", () => {
+  const choice = parseInt(playerInput.value)
   const index = emptySpacesArray.indexOf(choice)
   if (index !== -1) {
     let move = emptySpacesArray.splice(index, 1)[0]
-    player1Array.push(move)
+    if (emptySpacesArray.length % 2 === 0) {
+      player1Array.push(move)
+      player1Moves.textContent = "Player 1: [" + player1Array.join(", ") + "]"
+      playerLabel.textContent = "Player 2's move:"
+    } else {
+      player2Array.push(move)
+      player2Moves.textContent = "Player 2: [" + player2Array.join(", ") + "]"
+      playerLabel.textContent = "Player 1's move:"
+    }
     emptySpaces.textContent =
       "Empty spaces: [" + emptySpacesArray.join(", ") + "]"
-    player1Moves.textContent = "Player 1: [" + player1Array.join(", ") + "]"
-    player1Input.value = ""
+    playerInput.value = ""
 
-    player1Turn = !player1Turn
     if (checkWin(player1Array)) {
       reset()
       alert("Player 1 wins!")
     }
-  }
-})
-
-player2Submit.addEventListener("click", () => {
-  const choice = parseInt(player2Input.value)
-  const index = emptySpacesArray.indexOf(choice)
-  if (index !== -1) {
-    let move = emptySpacesArray.splice(index, 1)[0]
-    player2Array.push(move)
-    emptySpaces.textContent =
-      "Empty spaces: [" + emptySpacesArray.join(", ") + "]"
-    player2Moves.textContent = "Player 2: [" + player2Array.join(", ") + "]"
-
-    player2Input.value = ""
-
-    player1Turn = !player1Turn
-
     if (checkWin(player2Array)) {
       reset()
       alert("Player 2 wins!")
