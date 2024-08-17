@@ -17,13 +17,22 @@ const winningCombinations = [
   [2, 5, 8],
   [3, 6, 9],
   [1, 5, 9],
-  [3, 5, 7],
+  [3, 5, 7]
 ]
 
-function checkWin(playerArray) {
-  return winningCombinations.some((combination) =>
-    combination.every((number) => playerArray.includes(number))
-  )
+async function checkWin(playerArray) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (winningCombinations.some((combination) =>
+        combination.every((number) => playerArray.includes(number))
+      )) {
+        reset()
+        resolve(true)
+      } else {
+        reject(false)
+      }
+    }, 0)
+  })
 }
 
 function reset() {
@@ -38,7 +47,7 @@ const playerInput = document.getElementById("playerInput")
 const playerSubmit = document.getElementById("playerSubmit")
 const playerLabel = document.getElementById("playerLabel")
 
-playerSubmit.addEventListener("click", () => {
+playerSubmit.addEventListener("click", async () => {
   const choice = parseInt(playerInput.value)
   const index = emptySpacesArray.indexOf(choice)
   if (index !== -1) {
@@ -59,14 +68,18 @@ playerSubmit.addEventListener("click", () => {
       "Empty spaces: [" + emptySpacesArray.join(", ") + "]"
     playerInput.value = ""
 
-    if (checkWin(player1Array)) {
-      reset()
+    try {
+      await checkWin(player1Array)
       alert("Player 1 wins!")
+     } catch (error) {
+      try {
+        await checkWin(player2Array)
+        alert("Player 2 wins!")
+      } catch (error) {
+        // do nothing
+      }
     }
-    if (checkWin(player2Array)) {
-      reset()
-      alert("Player 2 wins!")
-    }
+
   }
 })
 
